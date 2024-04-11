@@ -2,6 +2,13 @@ FROM        --platform=$TARGETOS/$TARGETARCH debian:bookworm-slim
 
 LABEL       org.opencontainers.image.authors="i2007@damw.eu"
 LABEL       version="1.0"
+LABEL		traefik.enable=true
+LABEL		traefik.http.routers.sinusbot-https.rule=Host(`sinusbot.kay0.io`)
+LABEL		traefik.http.routers.sinusbot-https.entrypoints=https
+LABEL		traefik.http.routers.sinusbot-https.tls=true
+LABEL		traefik.http.routers.sinusbot-https.tls.certresolver=cloudflare-prod
+LABEL		traefik.http.routers.sinusbot-https.service=sinusbot-https-svc
+LABEL		traefik.http.services.sinusbot-https-svc.loadbalancer.server.port=8087
 
 ENV         DEBIAN_FRONTEND noninteractive
 
